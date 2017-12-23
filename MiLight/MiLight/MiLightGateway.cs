@@ -4,24 +4,23 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using MiLight.Lights;
+using PlanckHome;
 
 namespace MiLight
 {
 
-    public class MiBulb
+    public class MiBulb : ILightBulb
     {
         private readonly MiLightGateway mGateway;
         private readonly int mGroup;
-        private readonly string mName;
 
-        private bool mIsOn = false;
-
-        public MiBulb(MiLightGateway gateway, int group, string name)
+        public MiBulb(MiLightGateway gateway, int group)
         {
             mGateway = gateway;
             mGroup = @group;
-            mName = name;
         }
+
+        public bool IsOn { get; private set; }
 
         public void SwitchOn()
         {
@@ -33,7 +32,7 @@ namespace MiLight
         }
         public void Toggle()
         {
-            if (mIsOn)
+            if (IsOn)
             {
                 SwitchOff();
             }
@@ -41,7 +40,7 @@ namespace MiLight
             {
                 SwitchOn();
             }
-            mIsOn = !mIsOn;
+            IsOn = !IsOn;
         }
     }
 

@@ -1,9 +1,14 @@
 using System.Collections.Generic;
 using MiControl.Devices;
 using MiLight;
+using PlanckHome;
+using YeeLight;
 
 namespace Playground
 {
+
+
+
     public static class LivingRoom
     {
         public static MotionSensor MotionSensor => Devices.MotionLivingRoom;
@@ -19,25 +24,33 @@ namespace Playground
 
     public static class Bathroom
     {
-        
+        public static ILightBulb Light { get; }
     }
     public static class Hallway
     {
-        
+        public static ILightBulb Light { get; }
+
     }
     public static class Kitchen
     {
-        
+        public static ILightBulb MainLight { get; }
+        public static ILightBulb CabinatLight { get; }
+
     }
 
     public static class Devices
     {
         public static void Initialize(MiLightGateway miLightGateway)
         {
+            //Yee Light Devices
+            LightHallway = new YeelightDevice("192.168.10.77", "0x000000000361df8b", false, 0, "mono");
+            StripeA = new YeelightDevice("192.168.10.75", "0x000000000361afc3", false, 0, "stripe");
+            StripeB = new YeelightDevice("192.168.10.74", "0x0000000004555e6d", false, 0, "stripe");
+
             //Mi Light Devices
-            BulbA = new MiBulb(miLightGateway, 1, "BulbA");
-            BulbB = new MiBulb(miLightGateway, 2, "BulbB");
-            BulbC = new MiBulb(miLightGateway, 3, "BulbC");
+            BulbA = new MiBulb(miLightGateway, 1);
+            BulbB = new MiBulb(miLightGateway, 2);
+            BulbC = new MiBulb(miLightGateway, 3);
             
             //Mi Home Devices
             DoorBathroom = new DoorWindowSensor("158d0001e037e5") {CustomName = "Badezimmertür"};
@@ -54,9 +67,14 @@ namespace Playground
             SwitchE = new DoubleKeySwitch("158d0001718576") {CustomName = "Switch Wandregal"};
         }
 
+        //Yee Light Devices
+        public static YeelightDevice LightHallway { get; set; }
+        public static YeelightDevice StripeA { get; set; }
+        public static YeelightDevice StripeB { get; set; }
+
+
         //Mi Light Devices
         public static MiBulb BulbA { get; private set; }
-
         public static MiBulb BulbB {get; private set; }
         public static MiBulb BulbC {get; private set; }
 

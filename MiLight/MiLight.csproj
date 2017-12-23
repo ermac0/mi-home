@@ -50,5 +50,11 @@
     <Compile Include="MiLight\Lights\WhiteLights.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlanckHome\PlanckHome.csproj">
+      <Project>{F1D7CD65-7B83-4312-9F29-DCBF6A382AAD}</Project>
+      <Name>PlanckHome</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

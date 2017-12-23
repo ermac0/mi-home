@@ -15,7 +15,7 @@ namespace YeeLight
     public class DevicesDiscovery
     {
         //List of all discovered bulbs
-        private List<YeelightDevice> m_Bulbs;
+        private readonly List<YeelightDevice> mBulbs;
                 
         //Socket for SSDP 
         private Socket _ssdpSocket;
@@ -35,12 +35,12 @@ namespace YeeLight
         
         public DevicesDiscovery()
         {
-            m_Bulbs = new List<YeelightDevice>();
+            mBulbs = new List<YeelightDevice>();
         }
 
         public List<YeelightDevice> GetDiscoveredDevices()
         {
-            return m_Bulbs;
+            return mBulbs;
         }
 
         public void SendDiscoveryMessage()
@@ -164,10 +164,10 @@ namespace YeeLight
 
             //Console.WriteLine(response);
 
-            lock (m_Bulbs)
+            lock (mBulbs)
             {
                 //if list already contains this bulb skip
-                bool alreadyExisting = m_Bulbs.Any(item => item.Ip == ip);
+                bool alreadyExisting = mBulbs.Any(item => item.Ip == ip);
                 if (alreadyExisting == false)
                 {
                     string id = "";
@@ -183,7 +183,7 @@ namespace YeeLight
                     string model = "";
                     Utils.GetSubString(response, "model: ", "\r\n", ref model);
 
-                    m_Bulbs.Add(new YeelightDevice(ip, id, isOn, Convert.ToInt32(bright), model));
+                    mBulbs.Add(new YeelightDevice(ip, id, isOn, Convert.ToInt32(bright), model));
                 }
             }
         }

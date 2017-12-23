@@ -58,6 +58,10 @@
       <Project>{6d564f6b-abc2-41a7-9cb7-de10f109b7d1}</Project>
       <Name>MiLight</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlanckHome\PlanckHome.csproj">
+      <Project>{F1D7CD65-7B83-4312-9F29-DCBF6A382AAD}</Project>
+      <Name>PlanckHome</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YeeLight\YeeLight.csproj">
       <Project>{34d1d6a5-5939-4391-b503-0b53885667ea}</Project>
       <Name>YeeLight</Name>

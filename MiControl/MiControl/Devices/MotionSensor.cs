@@ -1,12 +1,15 @@
 ﻿using System;
 using MiControl.Events;
 using Newtonsoft.Json.Linq;
+using PlanckHome;
 
 namespace MiControl.Devices
 {
-    public class MotionSensor : MiHomeDevice
+    public class MotionSensor : 
+        MiHomeDevice,
+        IMotionSensor
     {
-        public event EventHandler OnMotion;
+        public event EventHandler MotionDetected;
         public event EventHandler<NoMotionEventArgs> OnNoMotion;
 
         public MotionSensor(string sid) : base(sid, "motion") {}
@@ -33,7 +36,7 @@ namespace MiControl.Devices
                 if (Status == "motion")
                 {
                     LastMotionTimestamp = DateTime.Now;
-                    OnMotion?.Invoke(this, EventArgs.Empty);
+                    MotionDetected?.Invoke(this, EventArgs.Empty);
                 }
             }
 
@@ -44,5 +47,6 @@ namespace MiControl.Devices
                 OnNoMotion?.Invoke(this, new NoMotionEventArgs(NoMotion));
             }
         }
+
     }
 }

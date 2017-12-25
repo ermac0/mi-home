@@ -4,47 +4,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using MiLight.Lights;
-using PlanckHome;
 
 namespace MiLight
 {
-
-    public class MiBulb : ILightBulb
-    {
-        private readonly MiLightGateway mGateway;
-        private readonly int mGroup;
-
-        public MiBulb(MiLightGateway gateway, int group)
-        {
-            mGateway = gateway;
-            mGroup = @group;
-        }
-
-        public bool IsOn { get; private set; }
-
-        public void SwitchOn()
-        {
-            mGateway.RGBW.SwitchOn(mGroup);
-        }
-        public void SwitchOff()
-        {
-            mGateway.RGBW.SwitchOff(mGroup);
-        }
-        public void Toggle()
-        {
-            if (IsOn)
-            {
-                SwitchOff();
-            }
-            else
-            {
-                SwitchOn();
-            }
-            IsOn = !IsOn;
-        }
-    }
-
-	/// <summary>
+    /// <summary>
 	/// Class for controlling a MiLight WiFi controller box. Must be instantiated
 	/// by supplying the IP-address of the controller. Commands for specified groups
 	/// or all lightbulbs can then be sent using the methods for RGB or white lightbulbs.

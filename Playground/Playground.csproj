@@ -42,7 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Rooms\Bathroom.cs" />
     <Compile Include="Devices.cs" />
+    <Compile Include="Rooms\Hallway.cs" />
+    <Compile Include="Rooms\Kitchen.cs" />
+    <Compile Include="Rooms\LivingRoom.cs" />
+    <Compile Include="Rooms\Office.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +66,10 @@
     <ProjectReference Include="..\PlanckHome\PlanckHome.csproj">
       <Project>{F1D7CD65-7B83-4312-9F29-DCBF6A382AAD}</Project>
       <Name>PlanckHome</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sonoff\Sonoff.csproj">
+      <Project>{B5F4EB95-16A4-44A5-94B8-B0B7EDD583FA}</Project>
+      <Name>Sonoff</Name>
     </ProjectReference>
     <ProjectReference Include="..\YeeLight\YeeLight.csproj">
       <Project>{34d1d6a5-5939-4391-b503-0b53885667ea}</Project>

@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MiControl;
 using MiLight;
+using PlanckHome;
+using Playground.Rooms;
 using YeeLight;
 
 namespace Playground
@@ -48,40 +50,75 @@ namespace Playground
                 Console.WriteLine($"Temperature: {eventArgs.Temperature} °C");
             };
 
-            Devices.MotionHall.OnMotion += (sender, eventArgs) =>
+            Devices.MotionHall.MotionDetected += (sender, eventArgs) =>
             {
                 Console.WriteLine("Motion Hall");
-                Devices.LightHallway.SwitchOn();
+                Devices.LightHallway.SwitchOn(TimeSpan.FromSeconds(90));
             };
 
-            Devices.MotionLivingRoom.OnMotion += (sender, eventArgs) =>
+            Devices.MotionLivingRoom.MotionDetected += (sender, eventArgs) =>
             {
                 Console.WriteLine("Motion Living Room");
             };
-            Devices.MotionBathroom.OnMotion += (sender, eventArgs) =>
+            Devices.MotionBathroom.MotionDetected += (sender, eventArgs) =>
             {
                 Console.WriteLine("Motion Bathroom");
             };
 
-            Devices.SwitchA.OnClicked += (sender, eventArgs) =>
+            var foo = new LightSceneSwitcher(new []
+            {
+                new LightScene(new []
+                {
+                    new LightSetting(LivingRoom.MainLight, 0), 
+                    new LightSetting(LivingRoom.LampLight, 0), 
+                }),
+                new LightScene(new []
+                {
+                    new LightSetting(LivingRoom.MainLight, 50), 
+                    new LightSetting(LivingRoom.LampLight, 50), 
+                }), 
+                new LightScene(new []
+                {
+                    new LightSetting(LivingRoom.MainLight, 100), 
+                    new LightSetting(LivingRoom.LampLight, 50), 
+                }), 
+                new LightScene(new []
+                {
+                    new LightSetting(LivingRoom.MainLight, 50), 
+                    new LightSetting(LivingRoom.LampLight, 100), 
+                }), 
+                new LightScene(new []
+                {
+                    new LightSetting(LivingRoom.MainLight, 100), 
+                    new LightSetting(LivingRoom.LampLight, 100), 
+                }), 
+            }, Devices.SwitchA);
+
+
+            Devices.SwitchA.Clicked += (sender, eventArgs) =>
             {
                 Console.WriteLine($"Switch A clicked");
-                Devices.BulbA.Toggle();
-                Devices.StripeB.Toggle();
+
             };
-            Devices.SwitchC.OnClicked += (sender, eventArgs) =>
+            Devices.SwitchB.Clicked += (sender, eventArgs) =>
+            {
+                Console.WriteLine($"Switch B clicked");
+
+            };
+            Devices.SwitchC.Clicked += (sender, eventArgs) =>
             {
                 Console.WriteLine($"Switch C clicked");
                 Devices.BulbA.Toggle();
                 Devices.LightHallway.SwitchOff();
+                Devices.ChristmasLights.Toggle();
             };
 
-            Devices.SwitchD.OnClicked += (sender, eventArgs) =>
+            Devices.SwitchD.Clicked += (sender, eventArgs) =>
             {
                 Console.WriteLine($"Switch D clicked");
                 Devices.BulbC.Toggle();
                 Devices.LightHallway.SwitchOn();
-
+                Devices.KitchenLights.Toggle();
             };
             LivingRoom.LightSwitch.OnLeftKeyClicked += (sender, eventArgs) =>
             {

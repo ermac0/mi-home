@@ -1,12 +1,15 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
+using PlanckHome;
 
 namespace MiControl.Devices
 {
-    public class DoorWindowSensor : MiHomeDevice
+    public class DoorWindowSensor :
+        MiHomeDevice,
+        IDoorSensor
     {
-        public event EventHandler OnOpen;
-        public event EventHandler OnClose;
+        public event EventHandler Opened;
+        public event EventHandler Closed;
 
         public DoorWindowSensor(string sid) : base(sid, "magnet") { }
 
@@ -20,10 +23,10 @@ namespace MiControl.Devices
             switch (Status)
             {
                 case "open":
-                    OnOpen?.Invoke(this, EventArgs.Empty);
+                    Opened?.Invoke(this, EventArgs.Empty);
                     break;
                 case "close":
-                    OnClose?.Invoke(this, EventArgs.Empty);
+                    Closed?.Invoke(this, EventArgs.Empty);
                     break;
             }
         }

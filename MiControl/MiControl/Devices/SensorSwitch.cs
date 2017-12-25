@@ -1,11 +1,14 @@
 using System;
 using Newtonsoft.Json.Linq;
+using PlanckHome;
 
 namespace MiControl.Devices
 {
-    public class SensorSwitch : MiHomeDevice
+    public class SensorSwitch :
+        MiHomeDevice,
+        ISwitch
     {
-        public event EventHandler<EventArgs> OnClicked;
+        public event EventHandler<EventArgs> Clicked;
 
         public SensorSwitch(string sid) : base(sid, (string)"sensor_switch.aq2") { }
 
@@ -13,7 +16,7 @@ namespace MiControl.Devices
         {
             if (data["status"] != null && data["status"].ToString() == "click")
             {
-                OnClicked?.Invoke(this, EventArgs.Empty);
+                Clicked?.Invoke(this, EventArgs.Empty);
             }
         }
 
